@@ -1,33 +1,81 @@
 project:
-  name: cfn-sample-template
+  name: quickstart-boomi-molecule
   owner: quickstart@amazon.com
-  package_lambda: false
+  lambda_source_path: functions/source
+  lambda_zip_path: functions/packages
   regions:
-  - ap-northeast-1
-  - ap-northeast-2
-  - ap-southeast-1
-  - ap-southeast-2
-  - eu-central-1
-  - eu-west-1
-  - sa-east-1
-  - us-east-1
-  - us-west-1
-  - us-west-2
-tests:
-  sample:
-    parameters:
-      Param1: 'Inputs to Stack'
-      # Examples: of other taskcat dynamic input parameters for more into see http://taskcat.io
-      #
-      #      AvailabilityZones: $[taskcat_genaz_3]
-      #      ByteValue: 1
-      #      PasswordA: $[taskcat_genpass_8A]
-      #      PasswordB: $[taskcat_genpass_32S]
-      #      RandomNumber: $[taskcat_random-numbers]
-      #      RandomString: $[taskcat_random-string]
-      #      StackName: TestStack
-      #      UUID: $[taskcat_genuuid]
-      #
-    regions:
+    - ap-northeast-1
+    - ap-northeast-2
+    - ap-south-1
+    - ap-southeast-1
+    - ap-southeast-2
+    - ca-central-1
+    - eu-central-1
+    - eu-west-1
+    - eu-west-2
+    - eu-west-3
+    - us-east-1
     - us-east-2
-    template: templates/another-workload.template.yaml
+    - us-west-1
+    - us-west-2
+tests:
+  quickstart-boomi-molecule-password:
+    regions:
+      - us-east-2
+    parameters:
+      AvailabilityZones: $[taskcat_genaz_2]
+      BoomiAccountID: override
+      BoomiUsername: override
+      HostedZoneID: override
+      KeyPairName: override
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
+      RemoteAccessCIDR: 127.0.0.1/32
+      MoleculeFQDN: override
+    template: templates/boomi-molecule-master.template.yaml
+  quickstart-boomi-molecule-password-private-alb:
+    regions:
+      - us-east-2
+    parameters:
+      AvailabilityZones: $[taskcat_genaz_2]
+      BoomiAccountID: override
+      BoomiUsername: override
+      HostedZoneID: override
+      KeyPairName: override
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
+      RemoteAccessCIDR: 127.0.0.1/32
+      MoleculeFQDN: override
+      PrivateALB: 'true'
+    template: templates/boomi-molecule-master.template.yaml
+  quickstart-boomi-molecule-password-no-alb:
+    regions:
+      - us-east-2
+    parameters:
+      AvailabilityZones: $[taskcat_genaz_2]
+      BoomiAccountID: override
+      BoomiUsername: override
+      HostedZoneID: override
+      KeyPairName: override
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
+      RemoteAccessCIDR: 127.0.0.1/32
+      MoleculeFQDN: override
+      DeployALB: 'false'
+    template: templates/boomi-molecule-master.template.yaml
+  # quickstart-boomi-molecule-install-token:
+  #   regions:
+  #     - us-east-2
+  #   parameters:
+  #     AvailabilityZones: $[taskcat_genaz_2]
+  #     BoomiAccountID: override
+  #     BoomiUsername: override
+  #     BoomiInstallToken: override
+  #     HostedZoneID: override
+  #     KeyPairName: override
+  #     QSS3BucketName: $[taskcat_autobucket]
+  #     QSS3BucketRegion: $[taskcat_current_region]
+  #     RemoteAccessCIDR: 127.0.0.1/32
+  #     MoleculeFQDN: override
+  #     PrivateALB: 'true'
+  #   template: templates/boomi-molecule-master.template.yaml
