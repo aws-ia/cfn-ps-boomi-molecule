@@ -1,4 +1,9 @@
 # quickstart-boomi-molecule
+## Deprecation Notice
+
+:x: This repository is subject to deprecation in Q4 2024. For more details, [please review this announcement](https://github.com/aws-ia/.announcements/issues/1). 
+
+
 ## Boomi Molecule on the AWS Cloud
 
 This Quick Start automatically deploys a Boomi Molecule cluster in the Amazon Web Services (AWS) Cloud. The deployment takes about 20 minutes.
